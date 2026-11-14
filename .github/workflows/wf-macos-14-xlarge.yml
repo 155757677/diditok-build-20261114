@@ -1,0 +1,10 @@
+name: Test wf-macos-14-xlarge.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  t:
+    runs-on: macos-14-xlarge
+    steps:
+      - name: hello
+        run: echo hello && sw_vers 2>/dev/null || true
