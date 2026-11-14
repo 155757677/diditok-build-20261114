@@ -84,10 +84,17 @@ jobs:
           echo "=== 重签后 entitlements 校验 ==="
           if [ -n "$ENT_ARGS" ]; then
             codesign -d --entitlements :- "$BIN_PATH" > after.plist 2>/dev/null || true
-            if grep -q "keychain-access-groups" after.plist && grep -q "application-identifier" after.plist; then
+            # 只检查「原始包里本来就有」的 key 是否保留（不同 App 的 entitlements 集合不一样）
+            MISS=0
+            for k in application-identifier aps-environment keychain-access-groups; do
+              if grep -q "$k" ent.plist && ! grep -q "$k" after.plist; then
+                echo "ERROR: $k 丢失"; MISS=1
+              fi
+            done
+            if [ "$MISS" = "0" ]; then
               echo "OK: entitlements 完整保留"
             else
-              echo "ERROR: entitlements 丢失"; cat after.plist; exit 1
+              cat after.plist; exit 1
             fi
           else
             echo "OK: 原始包无 entitlements，跳过该检查"
