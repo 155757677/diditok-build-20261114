@@ -1,0 +1,10 @@
+name: Test test-macos.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  t:
+    runs-on: macos-14
+    steps:
+      - name: hello
+        run: echo hello && date
