@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15   # macos-14 该账号被平台侧即时取消，换 macos-15 正常
     steps:
       - name: Checkout 仓库
         uses: actions/checkout@v4
