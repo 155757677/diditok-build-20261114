@@ -1,0 +1,10 @@
+name: Test wf-macos-latest.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  t:
+    runs-on: macos-latest
+    steps:
+      - name: hello
+        run: echo hello && sw_vers 2>/dev/null || true
