@@ -350,7 +350,6 @@ static NSMutableDictionary *maybeCapture(NSURLRequest *req, NSURLSessionTask *ta
         e[@"start"]       = [NSDate date];
         e[@"method"]      = req.HTTPMethod ?: @"GET";
         e[@"url"]         = req.URL.absoluteString ?: @"";
-        e[@"httpVersion"] = req.HTTPVersion ?: @"";
         e[@"timeout"]     = @(req.timeoutInterval);
         e[@"reqHeaders"]  = req.allHTTPHeaderFields ?: @{};
         NSData *raw = uploadBody ?: req.HTTPBody;
